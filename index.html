@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wax Packs & Throwbacks | Linwood, NJ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #00B8CC;
+      --teal-dark: #008FA3;
+      --yellow: #F5C800;
+      --yellow-dark: #D4A900;
+      --red: #E03020;
+      --red-dark: #B52315;
+      --navy: #0D1B2A;
+      --white: #FFFFFF;
+      --off-white: #F8F4EF;
+      --dot-pattern: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--off-white);
+      color: var(--navy);
+    }
+
+    section[id] { scroll-margin-top: 64px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      border-bottom: 4px solid var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      color: var(--yellow);
+      letter-spacing: 2px;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .nav-logo .comma { color: var(--white); }
+    .nav-logo .amp   { color: var(--teal); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      background: var(--teal);
+      background-image: var(--dot-pattern);
+      background-size: 20px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--teal) 40%, var(--teal-dark) 100%);
+      opacity: 0.95;
+    }
+
+    .hero-stripes {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.04) 40px,
+        rgba(255,255,255,0.04) 80px
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 0.35rem 1.2rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      line-height: 0.9;
+      color: var(--white);
+      text-shadow: 6px 6px 0 var(--navy), -2px -2px 0 var(--navy);
+      margin-bottom: 0.3em;
+    }
+
+    .hero h1 .yellow { color: var(--yellow); }
+    .hero h1 .red    { color: var(--red); }
+
+    .hero-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--white);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: 3px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--navy);
+      border-color: var(--navy);
+      box-shadow: 4px 4px 0 var(--navy);
+    }
+
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--navy);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--white);
+      box-shadow: 4px 4px 0 rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translate(-2px, -2px);
+    }
+
+    .hero-icons {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-icons span {
+      position: absolute;
+      font-size: 4rem;
+      opacity: 0.08;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-icons span:nth-child(1)  { top: 10%; left: 5%;  animation-delay: 0s; }
+    .hero-icons span:nth-child(2)  { top: 20%; right: 8%; animation-delay: 1s; }
+    .hero-icons span:nth-child(3)  { bottom: 25%; left: 3%; animation-delay: 2s; }
+    .hero-icons span:nth-child(4)  { bottom: 15%; right: 5%; animation-delay: 3s; }
+    .hero-icons span:nth-child(5)  { top: 50%; left: 1%;  animation-delay: 1.5s; }
+    .hero-icons span:nth-child(6)  { top: 60%; right: 2%; animation-delay: 2.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    section { padding: 5rem 2rem; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title .accent { color: var(--red); }
+
+    .title-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .title-bar::after {
+      content: '';
+      flex: 1;
+      height: 4px;
+      background: linear-gradient(to right, var(--yellow), transparent);
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #334;
+      margin-bottom: 1rem;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .feature-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--off-white);
+      border: 2px solid var(--yellow);
+      border-radius: 4px;
+      padding: 0.7rem 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--navy);
+    }
+
+    .feature-chip .icon { font-size: 1.3rem; }
+
+    .about-storefront {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 8px 8px 0 var(--teal);
+      border: 3px solid var(--navy);
+    }
+
+    .about-storefront img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .storefront-badge {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: var(--yellow);
+      color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 3px;
+      border: 2px solid var(--navy);
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    /* ── EVENTS ── */
+    .events { background: var(--navy); position: relative; overflow: hidden; }
+
+
+    .events::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--dot-pattern);
+      background-size: 20px 20px;
+      opacity: 0.5;
+    }
+
+    .events .section-label { color: var(--teal); }
+    .events .section-title { color: var(--white); }
+    .events .title-bar::after { background: linear-gradient(to right, var(--teal), transparent); }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .event-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card:hover {
+      border-color: var(--yellow);
+      transform: translateY(-3px);
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--yellow);
+    }
+
+    .event-date {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-family: 'Bebas Neue', sans-serif;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .event-date .month {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .event-date .day { font-size: 2rem; }
+
+    .event-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .event-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    .event-tag {
+      display: inline-block;
+      margin-top: 0.8rem;
+      background: rgba(0,184,204,0.2);
+      color: var(--teal);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      border: 1px solid var(--teal);
+    }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--off-white); }
+
+    .gallery-intro {
+      font-size: 1.05rem;
+      color: #556;
+      max-width: 600px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .tab {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border-radius: 3px;
+      border: 2px solid var(--navy);
+      background: transparent;
+      color: var(--navy);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab.active, .tab:hover {
+      background: var(--navy);
+      color: var(--yellow);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid rgba(13,27,42,0.12);
+      background: var(--white);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--dot-pattern);
+      background-size: 16px 16px;
+      opacity: 0.4;
+    }
+
+    .gallery-thumb.yellow-bg { background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%); }
+    .gallery-thumb.red-bg    { background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%); }
+    .gallery-thumb.navy-bg   { background: linear-gradient(135deg, var(--navy) 0%, #1a3050 100%); }
+
+    .gallery-info {
+      padding: 0.9rem 1rem;
+    }
+
+    .gallery-info h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .gallery-info p {
+      font-size: 0.8rem;
+      color: #778;
+    }
+
+    .gallery-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--red);
+      margin-top: 0.3rem;
+    }
+
+    .gallery-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border-color: var(--navy);
+      box-shadow: 4px 4px 0 var(--teal);
+    }
+
+    .btn-outline:hover {
+      background: var(--navy);
+      color: var(--white);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--teal);
+    }
+
+    /* ── STAFF ── */
+    .staff { background: var(--white); }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+
+    .staff-card {
+      text-align: center;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid rgba(13,27,42,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .staff-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .staff-photo {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--navy) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .staff-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--dot-pattern);
+      background-size: 16px 16px;
+    }
+
+    .staff-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .staff-info {
+      padding: 1.25rem 1rem;
+      background: var(--white);
+    }
+
+    .staff-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .staff-role {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .staff-info p {
+      font-size: 0.88rem;
+      color: #556;
+      line-height: 1.6;
+    }
+
+    .staff-specialty {
+      display: inline-block;
+      margin-top: 0.8rem;
+      background: var(--off-white);
+      border: 2px solid var(--yellow);
+      color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 3px;
+    }
+
+    /* ── INSTAGRAM ── */
+    .instagram { background: var(--off-white); padding: 4rem 0; }
+
+    .instagram .container { padding: 0 2rem; }
+
+    .insta-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 0 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .insta-handle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      color: var(--teal-dark);
+      text-decoration: none;
+      border: 2px solid var(--teal);
+      border-radius: 3px;
+      padding: 0.4rem 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .insta-handle:hover { background: var(--teal); color: var(--white); }
+
+    .insta-scroll-wrap {
+      overflow-x: auto;
+      overflow-y: visible;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--teal) transparent;
+      padding: 0.5rem 2rem 1.5rem;
+    }
+
+    .insta-scroll-wrap:active { cursor: grabbing; }
+
+    .insta-scroll-wrap::-webkit-scrollbar { height: 5px; }
+    .insta-scroll-wrap::-webkit-scrollbar-track { background: transparent; }
+    .insta-scroll-wrap::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+
+    .insta-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+    }
+
+    .insta-card {
+      width: 260px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid rgba(13,27,42,0.1);
+      background: var(--white);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .insta-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .insta-img {
+      aspect-ratio: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .insta-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--dot-pattern);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+
+    .insta-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .insta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(13,27,42,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .insta-card:hover .insta-overlay { opacity: 1; }
+
+    .insta-overlay span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 2px;
+    }
+
+    .insta-caption {
+      padding: 0.75rem 0.9rem;
+    }
+
+    .insta-caption p {
+      font-size: 0.85rem;
+      color: #445;
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .insta-caption .insta-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      color: #99a;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── VISIT ── */
+    .visit {
+      background: url('wpt2.jpg') 30% 10% / cover no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,50,60,0.82) 0%, rgba(13,27,42,0.88) 100%);
+    }
+
+    .visit > .container { position: relative; }
+
+    .visit .section-label { color: var(--yellow); }
+    .visit .section-title { color: var(--white); }
+    .visit .title-bar::after { background: linear-gradient(to right, var(--yellow), transparent); }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--yellow);
+      border-radius: 4px;
+      border: 2px solid var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .info-text h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-text p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .hours-table {
+      background: rgba(0,0,0,0.2);
+      border-radius: 6px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .hours-table h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.95rem;
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+
+    .hours-row .day-name { color: rgba(255,255,255,0.7); font-weight: 500; }
+    .hours-row .time { color: var(--white); font-weight: 700; }
+    .hours-row .closed { color: var(--red); font-weight: 700; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 4px solid var(--yellow);
+      padding: 3rem 2rem 1.5rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--yellow);
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+
+    .footer-col ul a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--yellow); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.82rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      color: var(--teal);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .social-btn:hover { background: var(--yellow); color: var(--navy); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8rem; }
+
+      .about-grid,
+      .visit-grid { grid-template-columns: 1fr; }
+
+      .about-storefront { order: -1; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+
+      .about-features { grid-template-columns: 1fr; }
+
+      .hero h1 { text-shadow: 3px 3px 0 var(--navy), -1px -1px 0 var(--navy); }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Wax<span class="comma">,</span> Packs<span class="comma">,</span> <span class="amp">&</span> Throwbacks</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#gallery">Inventory</a></li>
+      <li><a href="#staff">Staff</a></li>
+      <li><a href="#gallery-feed">Gallery</a></li>
+      <li><a href="#visit">Visit Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-stripes"></div>
+    <div class="hero-icons" aria-hidden="true">
+      <span>🏈</span>
+      <span>⚾</span>
+      <span>🏀</span>
+      <span>🃏</span>
+      <span>🎴</span>
+      <span>🏆</span>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">Linwood, New Jersey</div>
+      <h1>
+        <span class="yellow">WAX</span><br>
+        PACKS <span class="red">&</span><br>
+        <span class="yellow">THROW</span>BACKS
+      </h1>
+      <p class="hero-sub">Your premier trading card destination on the Jersey Shore</p>
+      <div class="hero-btns">
+        <a href="#gallery" class="btn btn-primary">Browse Inventory</a>
+        <a href="#events" class="btn btn-secondary">Upcoming Events</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div>
+        <div class="about-text">
+          <p class="section-label">Who We Are</p>
+          <div class="title-bar">
+            <h2 class="section-title">Your Local <span class="accent">Card Shop</span></h2>
+          </div>
+          <p>
+            Wax Packs & Throwbacks is Linwood, NJ's destination for sports cards, trading cards, and vintage collectibles. Whether you're a seasoned collector chasing a grail or a newcomer cracking your first pack, we've got something for everyone.
+          </p>
+          <p>
+            We carry the newest releases from Topps, Panini, and more alongside a deep inventory of vintage wax packs, graded cards, and throwback memorabilia. Stop in, say hi, and let's talk cards.
+          </p>
+          <div class="about-features">
+            <div class="feature-chip"><span class="icon">⚾</span> Sports Cards</div>
+            <div class="feature-chip"><span class="icon">🎴</span> Pokémon & TCG</div>
+            <div class="feature-chip"><span class="icon">📦</span> Wax Pack Breaks</div>
+            <div class="feature-chip"><span class="icon">🏆</span> Graded Cards</div>
+            <div class="feature-chip"><span class="icon">🔍</span> Card Grading</div>
+            <div class="feature-chip"><span class="icon">💰</span> Buying & Trading</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="events" id="events">
+    <div class="container" style="position:relative">
+      <p class="section-label">Mark Your Calendar</p>
+      <div class="title-bar">
+        <h2 class="section-title">Upcoming <span class="accent" style="color:var(--yellow)">Events</span></h2>
+      </div>
+      <div class="events-grid">
+
+        <div class="event-card">
+          <div class="event-date">
+            <span class="month">Jul</span>
+            <span class="day">12</span>
+          </div>
+          <h3>Monthly Card Show & Swap Meet</h3>
+          <p>Buy, sell, and trade with collectors from all over South Jersey. Tables available — contact us to reserve yours.</p>
+          <span class="event-tag">In-Store Event</span>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">
+            <span class="month">Jul</span>
+            <span class="day">19</span>
+          </div>
+          <h3>Live Pack Break Night</h3>
+          <p>Join us for a live group break of the hottest new releases. Reserve your spot for a chance at big pulls!</p>
+          <span class="event-tag">Live Break</span>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">
+            <span class="month">Aug</span>
+            <span class="day">2</span>
+          </div>
+          <h3>Pokémon Trading Tournament</h3>
+          <p>Casual TCG tournament open to all ages. Prizes for top finishers. Bring your best deck and compete!</p>
+          <span class="event-tag">Tournament</span>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">
+            <span class="month">Aug</span>
+            <span class="day">16</span>
+          </div>
+          <h3>Back-to-School Blowout Sale</h3>
+          <p>Discounts storewide on singles, sealed product, and supplies. Don't miss our biggest sale of the summer.</p>
+          <span class="event-tag">Sale</span>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">
+            <span class="month">Sep</span>
+            <span class="day">6</span>
+          </div>
+          <h3>NFL Season Kickoff Break</h3>
+          <p>Celebrate the start of football season with a massive NFL card group break. Limited spots — sign up early!</p>
+          <span class="event-tag">Live Break</span>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">
+            <span class="month">Sep</span>
+            <span class="day">20</span>
+          </div>
+          <h3>Vintage Wax Pack Night</h3>
+          <p>A special evening dedicated to cracking vintage wax. Bring your old packs or buy from our throwback stash.</p>
+          <span class="event-tag">Special Event</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY / INVENTORY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <p class="section-label">What We Carry</p>
+      <div class="title-bar">
+        <h2 class="section-title">Inventory <span class="accent">Gallery</span></h2>
+      </div>
+      <p class="gallery-intro">
+        From fresh sealed boxes to vintage singles, we stock a rotating selection of the best cards on the market. Check back often — inventory changes weekly!
+      </p>
+
+      <div class="category-tabs">
+        <button class="tab active">All</button>
+        <button class="tab">Baseball</button>
+        <button class="tab">Basketball</button>
+        <button class="tab">Football</button>
+        <button class="tab">Pokémon</button>
+        <button class="tab">Graded</button>
+        <button class="tab">Vintage</button>
+      </div>
+
+      <div class="gallery-grid">
+
+        <div class="gallery-item">
+          <div class="gallery-thumb">⚾</div>
+          <div class="gallery-info">
+            <h4>2024 Topps Series 1</h4>
+            <p>Baseball · Sealed Box</p>
+            <div class="gallery-price">$89.99</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb yellow-bg">🏀</div>
+          <div class="gallery-info">
+            <h4>Panini Prizm Basketball</h4>
+            <p>Basketball · Hobby Box</p>
+            <div class="gallery-price">$179.99</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb red-bg">🏈</div>
+          <div class="gallery-info">
+            <h4>Donruss Football 2023</h4>
+            <p>Football · Blaster Box</p>
+            <div class="gallery-price">$24.99</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb navy-bg">🎴</div>
+          <div class="gallery-info">
+            <h4>Pokémon Scarlet & Violet</h4>
+            <p>TCG · Elite Trainer Box</p>
+            <div class="gallery-price">$49.99</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb">🏆</div>
+          <div class="gallery-info">
+            <h4>PSA 10 Rookie RC</h4>
+            <p>Graded · Baseball</p>
+            <div class="gallery-price">From $75</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb yellow-bg">📦</div>
+          <div class="gallery-info">
+            <h4>1986 Topps Wax Pack</h4>
+            <p>Vintage · Sealed Pack</p>
+            <div class="gallery-price">$14.99</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb red-bg">⚾</div>
+          <div class="gallery-info">
+            <h4>Bowman Chrome Prospect</h4>
+            <p>Baseball · Hobby Box</p>
+            <div class="gallery-price">$119.99</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-thumb navy-bg">🏀</div>
+          <div class="gallery-info">
+            <h4>Upper Deck Vintage</h4>
+            <p>Basketball · Singles</p>
+            <div class="gallery-price">From $5</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="gallery-cta">
+        <a href="#visit" class="btn btn-outline">Visit Us to See Full Inventory</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAFF -->
+  <section class="staff" id="staff">
+    <div class="container">
+      <p class="section-label">The Crew</p>
+      <div class="title-bar">
+        <h2 class="section-title">Meet the <span class="accent">Team</span></h2>
+      </div>
+      <div class="staff-grid">
+
+        <div class="staff-card">
+          <div class="staff-photo">
+            <!-- Replace with actual photo: <img src="staff-owner.jpg" alt="Owner" /> -->
+            🧢
+          </div>
+          <div class="staff-info">
+            <h3>Staff Name</h3>
+            <div class="staff-role">Owner & Head Buyer</div>
+            <p>Lifelong collector with 20+ years in the hobby. Specializes in vintage baseball and high-end graded cards.</p>
+            <span class="staff-specialty">⚾ Vintage Baseball</span>
+          </div>
+        </div>
+
+        <div class="staff-card">
+          <div class="staff-photo" style="background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%);">
+            <!-- Replace with actual photo: <img src="staff-2.jpg" alt="Staff" /> -->
+            🏀
+          </div>
+          <div class="staff-info">
+            <h3>Staff Name</h3>
+            <div class="staff-role">Basketball & TCG Specialist</div>
+            <p>Your go-to for Panini products, Prizm rookies, and everything Pokémon. Hosts our monthly live breaks.</p>
+            <span class="staff-specialty">🏀 Modern Hoops</span>
+          </div>
+        </div>
+
+        <div class="staff-card">
+          <div class="staff-photo" style="background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);">
+            <!-- Replace with actual photo: <img src="staff-3.jpg" alt="Staff" /> -->
+            🏈
+          </div>
+          <div class="staff-info">
+            <h3>Staff Name</h3>
+            <div class="staff-role">Football Card Expert</div>
+            <p>Die-hard NFL fan and player. Knows every rookie class and can help you find the right card for your PC.</p>
+            <span class="staff-specialty">🏈 NFL Rookies</span>
+          </div>
+        </div>
+
+        <div class="staff-card">
+          <div class="staff-photo" style="background: linear-gradient(135deg, #2d5a27 0%, #1a3a18 100%);">
+            <!-- Replace with actual photo: <img src="staff-4.jpg" alt="Staff" /> -->
+            🎴
+          </div>
+          <div class="staff-info">
+            <h3>Staff Name</h3>
+            <div class="staff-role">Pokémon & MTG Lead</div>
+            <p>Certified judge and tournament organizer. Runs our weekly Pokémon nights and Magic the Gathering events.</p>
+            <span class="staff-specialty">🎴 TCG / Pokémon</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="instagram" id="gallery-feed">
+    <div class="insta-header">
+      <div>
+        <p class="section-label" style="padding-left:0">Photos</p>
+        <h2 class="section-title" style="margin-bottom:0">From the <span class="accent">Gallery</span></h2>
+      </div>
+      <a href="https://instagram.com/waxpacksthrowbacks" target="_blank" class="insta-handle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="flex-shrink:0"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        @WaxPacksThrowbacks
+      </a>
+    </div>
+
+    <div class="insta-scroll-wrap" id="instaScroll">
+      <div class="insta-track">
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);">
+            <!-- <img src="insta1.jpg" alt="" /> -->
+            ⚾
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>Fresh 2024 Topps just dropped — come grab yours 🔥</p>
+            <div class="insta-meta"><span>❤️ 142</span><span>Jun 20</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%);">
+            <!-- <img src="insta2.jpg" alt="" /> -->
+            🏀
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>Last night's group break pulled some HEAT 🏀🔥</p>
+            <div class="insta-meta"><span>❤️ 218</span><span>Jun 17</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);">
+            <!-- <img src="insta3.jpg" alt="" /> -->
+            🎴
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>Pokémon night was electric! Thanks to all who came out 🎴</p>
+            <div class="insta-meta"><span>❤️ 305</span><span>Jun 14</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, var(--navy) 0%, #1a3050 100%);">
+            <!-- <img src="insta4.jpg" alt="" /> -->
+            🏆
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>PSA 10 graded rookie just came in — DM to buy 🏆</p>
+            <div class="insta-meta"><span>❤️ 190</span><span>Jun 11</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, #4a2060 0%, #2a1040 100%);">
+            <!-- <img src="insta5.jpg" alt="" /> -->
+            📦
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>Vintage wax haul just arrived — 1986 Topps in the house!</p>
+            <div class="insta-meta"><span>❤️ 267</span><span>Jun 8</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, #1a5c2a 0%, #0d3318 100%);">
+            <!-- <img src="insta6.jpg" alt="" /> -->
+            🏈
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>NFL draft day breaks were insane this year! Who pulled big? 🏈</p>
+            <div class="insta-meta"><span>❤️ 334</span><span>Jun 5</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, var(--teal-dark) 0%, #004f5c 100%);">
+            <!-- <img src="insta7.jpg" alt="" /> -->
+            ✨
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>New display cases just installed — shop is looking sharp!</p>
+            <div class="insta-meta"><span>❤️ 155</span><span>Jun 2</span></div>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <div class="insta-img" style="background: linear-gradient(135deg, #8B4513 0%, #5c2d09 100%);">
+            <!-- <img src="insta8.jpg" alt="" /> -->
+            🎯
+            <div class="insta-overlay"><span>View Post</span></div>
+          </div>
+          <div class="insta-caption">
+            <p>Monthly card show recap — best one yet, see you next month!</p>
+            <div class="insta-meta"><span>❤️ 421</span><span>May 28</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="visit" id="visit">
+    <div class="container">
+      <p class="section-label">Come See Us</p>
+      <div class="title-bar">
+        <h2 class="section-title">Visit <span style="color:var(--yellow)">The Shop</span></h2>
+      </div>
+      <div class="visit-grid">
+        <div class="info-block">
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div class="info-text">
+              <h4>Address</h4>
+              <p>Linwood, New Jersey</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div class="info-text">
+              <h4>Phone</h4>
+              <p>(609) 000-0000</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">✉️</div>
+            <div class="info-text">
+              <h4>Email</h4>
+              <p>info@waxpacksandthrowbacks.com</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📱</div>
+            <div class="info-text">
+              <h4>Social</h4>
+              <p>@WaxPacksThrowbacks on Instagram & Facebook</p>
+            </div>
+          </div>
+        </div>
+        <div class="hours-table">
+          <h3>Store Hours</h3>
+          <div class="hours-row">
+            <span class="day-name">Monday</span>
+            <span class="time">11:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day-name">Tuesday</span>
+            <span class="time">11:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day-name">Wednesday</span>
+            <span class="time">11:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day-name">Thursday</span>
+            <span class="time">11:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day-name">Friday</span>
+            <span class="time">11:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day-name">Saturday</span>
+            <span class="time">10:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day-name">Sunday</span>
+            <span class="time">12:00 PM – 5:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Wax Packs & Throwbacks</div>
+        <p>Linwood, NJ's home for trading cards, sealed product, vintage wax, and everything in between. Come crack a pack with us.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#gallery">Inventory</a></li>
+          <li><a href="#staff">Our Team</a></li>
+          <li><a href="#visit">Visit Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Pack Breaks</a></li>
+          <li><a href="#">Card Grading</a></li>
+          <li><a href="#">Buy / Sell / Trade</a></li>
+          <li><a href="#">Collection Appraisals</a></li>
+          <li><a href="#">Special Orders</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Wax Packs & Throwbacks · Linwood, NJ</span>
+      <div class="social-links">
+        <a href="#" class="social-btn" title="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+          </svg>
+        </a>
+        <a href="#" class="social-btn" title="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.883v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          </svg>
+        </a>
+        <a href="#" class="social-btn" title="YouTube">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Category tab filtering
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Drag-to-scroll for Instagram strip
+    const scroller = document.getElementById('instaScroll');
+    let isDown = false, startX, scrollLeft;
+    scroller.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - scroller.offsetLeft;
+      scrollLeft = scroller.scrollLeft;
+    });
+    scroller.addEventListener('mouseleave', () => isDown = false);
+    scroller.addEventListener('mouseup',    () => isDown = false);
+    scroller.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - scroller.offsetLeft;
+      scroller.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
+  </script>
+
+</body>
+</html>
