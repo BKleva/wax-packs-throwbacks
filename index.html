@@ -1223,12 +1223,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
-        padding-bottom: 0.5rem;
+        gap: 1rem;
+        padding: 0.5rem 0 1rem;
       }
       .staff-dot {
-        width: 7px;
-        height: 7px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         background: rgba(13,27,42,0.2);
         border: none;
@@ -1239,6 +1239,47 @@
         background: var(--navy);
         transform: scale(1.4);
       }
+      .staff-arrow {
+        background: var(--navy);
+        color: var(--yellow);
+        border: 2px solid var(--yellow);
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s, color 0.2s;
+      }
+      .staff-arrow:hover { background: var(--yellow); color: var(--navy); }
+
+      /* Gallery arrows on mobile */
+      .gallery-mobile-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .gallery-arrow {
+        background: var(--navy);
+        color: var(--yellow);
+        border: 2px solid var(--yellow);
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s, color 0.2s;
+      }
+      .gallery-arrow:hover { background: var(--yellow); color: var(--navy); }
     }
 
     /* ── INSTAGRAM ── */
@@ -2016,6 +2057,10 @@
         </div>
       </div>
     </div>
+    <div class="gallery-mobile-nav" id="galleryNav" style="display:none">
+      <button class="gallery-arrow" id="galleryPrev" aria-label="Previous">&#8592;</button>
+      <button class="gallery-arrow" id="galleryNext" aria-label="Next">&#8594;</button>
+    </div>
   </section>
 
   <!-- EVENTS -->
@@ -2088,7 +2133,9 @@
           <!-- loaded from Supabase -->
         </div>
         <div class="staff-carousel-controls">
+          <button class="staff-arrow" id="staffPrev" aria-label="Previous">&#8592;</button>
           <div class="staff-dots" id="staffDots"></div>
+          <button class="staff-arrow" id="staffNext" aria-label="Next">&#8594;</button>
         </div>
       </div>
     </div>
@@ -2500,30 +2547,42 @@
         dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === index % total));
       }
 
+      // Center card alignment
+      grid.style.alignItems = 'center';
+
       let timer;
+      function advance(dir) {
+        index += dir;
+        goTo(index);
+        if (index >= total) {
+          setTimeout(() => {
+            grid.style.transition = 'none';
+            grid.style.transform = 'translateX(0)';
+            index = 0;
+            dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === 0));
+          }, 460);
+        } else if (index < 0) {
+          index = total - 1;
+          grid.style.transition = 'none';
+          grid.style.transform = `translateX(-${index * window.innerWidth}px)`;
+          setTimeout(() => { grid.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)'; }, 20);
+        }
+      }
       function resetTimer() {
         clearInterval(timer);
-        timer = setInterval(() => {
-          index++;
-          goTo(index);
-          if (index >= total) {
-            setTimeout(() => {
-              grid.style.transition = 'none';
-              grid.style.transform = 'translateX(0)';
-              index = 0;
-              dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === 0));
-            }, 460);
-          }
-        }, 4000);
+        timer = setInterval(() => advance(1), 4000);
       }
       resetTimer();
+
+      document.getElementById('staffPrev')?.addEventListener('click', () => { advance(-1); resetTimer(); });
+      document.getElementById('staffNext')?.addEventListener('click', () => { advance(1); resetTimer(); });
 
       // Swipe support
       let sx = 0;
       grid.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
       grid.addEventListener('touchend', e => {
         const diff = sx - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) { goTo(index + (diff > 0 ? 1 : -1)); resetTimer(); }
+        if (Math.abs(diff) > 40) { advance(diff > 0 ? 1 : -1); resetTimer(); }
       });
     }
 
@@ -2567,7 +2626,7 @@
       if (origCards.length < 2) return;
       wrap.classList.add('carousel-active');
 
-      // Clone all cards and append — creates seamless loop
+      // Clone all cards for seamless loop
       origCards.forEach(card => {
         const clone = card.cloneNode(true);
         clone.addEventListener('click', () => openLightbox(clone.dataset.url, clone.dataset.caption));
@@ -2577,20 +2636,42 @@
       const gap = 16;
       const cardW = () => origCards[0].offsetWidth + gap;
       let index = 0;
+      let autoTimer;
 
-      setInterval(() => {
+      function scrollTo(i) {
+        wrap.scrollTo({ left: i * cardW(), behavior: 'smooth' });
+      }
+      function resetAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          index++;
+          scrollTo(index);
+          if (index >= origCards.length) {
+            setTimeout(() => {
+              wrap.scrollTo({ left: 0, behavior: 'instant' });
+              index = 0;
+            }, 550);
+          }
+        }, 3200);
+      }
+      resetAuto();
+
+      // Show nav arrows and wire them up
+      const nav = document.getElementById('galleryNav');
+      if (nav) nav.style.display = 'flex';
+      document.getElementById('galleryPrev')?.addEventListener('click', () => {
+        index = index <= 0 ? origCards.length - 1 : index - 1;
+        scrollTo(index);
+        resetAuto();
+      });
+      document.getElementById('galleryNext')?.addEventListener('click', () => {
         index++;
-        wrap.scrollTo({ left: index * cardW(), behavior: 'smooth' });
-
-        // When we've shown the first clone (index === origCards.length),
-        // silently jump back to the real card at index 0 after the slide finishes
+        scrollTo(index);
         if (index >= origCards.length) {
-          setTimeout(() => {
-            wrap.scrollTo({ left: 0, behavior: 'instant' });
-            index = 0;
-          }, 550);
+          setTimeout(() => { wrap.scrollTo({ left: 0, behavior: 'instant' }); index = 0; }, 550);
         }
-      }, 3200);
+        resetAuto();
+      });
     }
 
     /* ── INITIAL LOAD ── */
