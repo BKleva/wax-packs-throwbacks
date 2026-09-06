@@ -1168,38 +1168,36 @@
       .visit { background-position: 80px center; background-size: 160%; }
       .shop-fulfillment { justify-content: center; }
 
-      /* Mobile: looping carousel, card matches desktop look but smaller */
+      /* Mobile: coverflow carousel */
       .staff-carousel-wrap {
         overflow: hidden;
+        position: relative;
+        height: 370px;
       }
       .staff-grid {
-        justify-content: flex-start;
+        position: relative;
+        display: block;
+        height: 100%;
+        overflow: visible;
+        padding: 0;
         gap: 0;
-        overflow-x: visible;
-        padding: 1rem 0 1.5rem;
-        transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
-        will-change: transform;
+        transition: none;
       }
-      /* Each slide slot is 100vw; card is centered inside it */
       .staff-card {
-        flex: 0 0 100vw;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-        padding: 0 2rem;
-        box-sizing: border-box;
+        position: absolute;
+        width: 190px;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        opacity: 0;
+        z-index: 1;
+        transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease, box-shadow 0.5s ease;
+        flex: none;
+        pointer-events: none;
       }
       .staff-card::before { display: none; }
-      /* Inner card wrapper matches desktop size */
       .staff-card .madden-inner {
         width: 100%;
-        max-width: 200px;
         border-radius: 12px;
         overflow: hidden;
         background: linear-gradient(160deg, #1a2a3a 0%, #0a1520 60%, #0d1b2a 100%);
@@ -1215,9 +1213,22 @@
       }
       .staff-card.owner-card .madden-inner { border: 2px solid var(--yellow); }
       .staff-card.assoc-card .madden-inner { border: 2px solid var(--teal); }
-      .staff-card:hover {
-        transform: none;
-        box-shadow: none;
+      /* Coverflow states */
+      .staff-card.cs-active {
+        opacity: 1;
+        z-index: 10;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+        pointer-events: auto;
+      }
+      .staff-card.cs-prev {
+        opacity: 0.38;
+        z-index: 5;
+        transform: translateX(calc(-50% - 150px)) translateY(-50%) scale(0.78);
+      }
+      .staff-card.cs-next {
+        opacity: 0.38;
+        z-index: 5;
+        transform: translateX(calc(-50% + 150px)) translateY(-50%) scale(0.78);
       }
       .staff-carousel-controls {
         display: flex;
@@ -2521,18 +2532,15 @@
       if (window.innerWidth > 768) return;
       const grid     = document.getElementById('staffCarousel');
       const dotsWrap = document.getElementById('staffDots');
-      const origCards = Array.from(grid.querySelectorAll('.staff-card'));
-      if (origCards.length < 2) return;
+      const cards    = Array.from(grid.querySelectorAll('.staff-card'));
+      if (cards.length < 2) return;
 
-      // Clone all cards for seamless loop
-      origCards.forEach(card => grid.appendChild(card.cloneNode(true)));
+      const total = cards.length;
+      let current = 0;
 
-      const total = origCards.length;
-      let index = 0;
-
-      // Build dots (one per real card)
+      // Build dots
       dotsWrap.innerHTML = '';
-      origCards.forEach((_, i) => {
+      cards.forEach((_, i) => {
         const d = document.createElement('button');
         d.className = 'staff-dot' + (i === 0 ? ' active' : '');
         d.setAttribute('aria-label', 'Slide ' + (i + 1));
@@ -2541,48 +2549,34 @@
       });
 
       function goTo(n) {
-        index = n;
-        grid.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
-        grid.style.transform = `translateX(-${index * window.innerWidth}px)`;
-        dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === index % total));
+        current = ((n % total) + total) % total;
+        const prev = ((current - 1) + total) % total;
+        const next = (current + 1) % total;
+        cards.forEach((c, i) => {
+          c.classList.remove('cs-active', 'cs-prev', 'cs-next');
+          if (i === current)     c.classList.add('cs-active');
+          else if (i === prev)   c.classList.add('cs-prev');
+          else if (i === next)   c.classList.add('cs-next');
+        });
+        dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === current));
       }
-
-      // Center card alignment
-      grid.style.alignItems = 'center';
+      goTo(0);
 
       let timer;
-      function advance(dir) {
-        index += dir;
-        goTo(index);
-        if (index >= total) {
-          setTimeout(() => {
-            grid.style.transition = 'none';
-            grid.style.transform = 'translateX(0)';
-            index = 0;
-            dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === 0));
-          }, 460);
-        } else if (index < 0) {
-          index = total - 1;
-          grid.style.transition = 'none';
-          grid.style.transform = `translateX(-${index * window.innerWidth}px)`;
-          setTimeout(() => { grid.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)'; }, 20);
-        }
-      }
       function resetTimer() {
         clearInterval(timer);
-        timer = setInterval(() => advance(1), 4000);
+        timer = setInterval(() => goTo(current + 1), 4000);
       }
       resetTimer();
 
-      document.getElementById('staffPrev')?.addEventListener('click', () => { advance(-1); resetTimer(); });
-      document.getElementById('staffNext')?.addEventListener('click', () => { advance(1); resetTimer(); });
+      document.getElementById('staffPrev')?.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+      document.getElementById('staffNext')?.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
 
-      // Swipe support
       let sx = 0;
       grid.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
       grid.addEventListener('touchend', e => {
         const diff = sx - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) { advance(diff > 0 ? 1 : -1); resetTimer(); }
+        if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); resetTimer(); }
       });
     }
 
