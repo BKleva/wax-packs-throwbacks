@@ -1168,7 +1168,7 @@
       .visit { background-position: 80px center; background-size: 160%; }
       .shop-fulfillment { justify-content: center; }
 
-      /* Mobile: full-width looping carousel */
+      /* Mobile: looping carousel, card matches desktop look but smaller */
       .staff-carousel-wrap {
         overflow: hidden;
       }
@@ -1180,24 +1180,44 @@
         transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
         will-change: transform;
       }
+      /* Each slide slot is 100vw; card is centered inside it */
       .staff-card {
-        flex: 0 0 100%;
-        width: 100%;
-        border-radius: 12px;
+        flex: 0 0 100vw;
+        width: 100vw;
         display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        max-width: 340px;
-        margin: 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0 2rem;
+        box-sizing: border-box;
       }
+      .staff-card::before { display: none; }
+      /* Inner card wrapper matches desktop size */
+      .staff-card .madden-inner {
+        width: 100%;
+        max-width: 200px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(160deg, #1a2a3a 0%, #0a1520 60%, #0d1b2a 100%);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+        position: relative;
+      }
+      .staff-card .madden-inner::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, var(--yellow), #fff8aa, var(--yellow), transparent);
+      }
+      .staff-card.owner-card .madden-inner { border: 2px solid var(--yellow); }
+      .staff-card.assoc-card .madden-inner { border: 2px solid var(--teal); }
       .staff-card:hover {
         transform: none;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.45);
-      }
-      /* On mobile, make the card vertical like desktop */
-      .staff-card {
-        flex-direction: column;
-        max-width: none;
+        box-shadow: none;
       }
       .staff-carousel-controls {
         display: flex;
@@ -2429,19 +2449,21 @@
           ? `<img class="madden-photo" src="${s.photo_url}" alt="${s.name}" loading="lazy" />`
           : `<div class="madden-photo-placeholder">${s.photo_emoji || '🧢'}</div>`;
         return `<div class="staff-card ${isOwner ? 'owner-card' : 'assoc-card'}">
-          <div class="madden-top">
-            <div class="madden-rating">
-              <span class="madden-ovr-num">99</span>
-              <span class="madden-ovr-label">OVR</span>
+          <div class="madden-inner">
+            <div class="madden-top">
+              <div class="madden-rating">
+                <span class="madden-ovr-num">99</span>
+                <span class="madden-ovr-label">OVR</span>
+              </div>
+              <span class="madden-tier">${accs.tier}</span>
             </div>
-            <span class="madden-tier">${accs.tier}</span>
-          </div>
-          ${photo}
-          <div class="madden-info">
-            <div class="madden-name">${s.name}</div>
-            <div class="madden-pos">${s.role || 'Card Expert'}</div>
-            <div class="madden-divider"></div>
-            <div class="madden-stats">${statsHtml}</div>
+            ${photo}
+            <div class="madden-info">
+              <div class="madden-name">${s.name}</div>
+              <div class="madden-pos">${s.role || 'Card Expert'}</div>
+              <div class="madden-divider"></div>
+              <div class="madden-stats">${statsHtml}</div>
+            </div>
           </div>
         </div>`;
       }).join('');
@@ -2474,7 +2496,7 @@
       function goTo(n) {
         index = n;
         grid.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
-        grid.style.transform = `translateX(-${index * 100}%)`;
+        grid.style.transform = `translateX(-${index * window.innerWidth}px)`;
         dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === index % total));
       }
 
