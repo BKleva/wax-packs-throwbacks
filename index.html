@@ -2533,7 +2533,7 @@
           let expanded = false;
           toggle.onclick = () => {
             expanded = !expanded;
-            grid.querySelectorAll('.event-hidden').forEach(c => { c.style.display = expanded ? '' : 'none'; });
+            grid.querySelectorAll('.event-hidden').forEach(c => { c.style.display = expanded ? 'block' : 'none'; });
             toggle.textContent = expanded ? 'Show Less ▴' : 'Show More Events ▾';
           };
           grid.querySelectorAll('.event-hidden').forEach(c => { c.style.display = 'none'; });
