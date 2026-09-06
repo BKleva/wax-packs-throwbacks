@@ -549,9 +549,7 @@
       position: relative;
     }
 
-    .event-card.event-hidden {
-      display: none !important;
-    }
+    .event-hidden { display: none; }
     .events-toggle {
       border: 2px solid var(--yellow);
       color: var(--navy);
@@ -1742,6 +1740,42 @@
       .insta-scroll-wrap.carousel-active::-webkit-scrollbar { display: none; }
 
       .events-grid { grid-template-columns: 1fr; }
+
+      /* Mobile compact calendar panel */
+      .events-calendar-panel {
+        margin-top: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .event-card.event-compact {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.65rem 0.9rem;
+        border-radius: 6px;
+      }
+      .event-card.event-compact .event-date {
+        margin-bottom: 0;
+        padding: 0.3rem 0.6rem;
+        min-width: 46px;
+        flex-shrink: 0;
+      }
+      .event-card.event-compact .event-date .day { font-size: 1.4rem; }
+      .event-card.event-compact h3 {
+        font-size: 0.85rem;
+        margin-bottom: 0.1rem;
+        line-height: 1.2;
+      }
+      .event-card.event-compact div[style*="color:var(--teal)"] {
+        font-size: 0.72rem;
+        margin-bottom: 0;
+      }
+      .event-card.event-compact .event-tag {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.4rem;
+        margin-top: 0.2rem;
+      }
     }
 
     /* ── HAMBURGER ── */
@@ -2445,7 +2479,7 @@
 
     /* ── LOAD EVENTS ── */
     async function loadEvents() {
-      const grid = document.getElementById('eventsGrid');
+      const grid   = document.getElementById('eventsGrid');
       const toggle = document.getElementById('eventsToggle');
       const { data, error } = await sb.from('wpt_events').select('*').eq('active', true).order('sort_order').order('id');
       if (error || !data || !data.length) {
@@ -2453,31 +2487,59 @@
         toggle.style.display = 'none';
         return;
       }
-      const visible = data.slice(0, 3);
-      const hidden  = data.slice(3);
-      function buildCard(ev, hide) {
+
+      const isMobile = window.innerWidth <= 768;
+
+      function buildCard(ev, compact) {
         const parts = (ev.date || '').split(' ');
         const month = parts[0] || '';
         const day   = parts[1] || '';
-        return `<div class="event-card${hide ? ' event-hidden' : ''}">
+        return `<div class="event-card${compact ? ' event-compact' : ''}">
           <div class="event-date"><span class="month">${month}</span><span class="day">${day}</span></div>
           <h3>${ev.title}</h3>
           ${ev.time ? `<div style="font-size:0.8rem;color:var(--teal);margin-bottom:0.4rem;">${ev.time}</div>` : ''}
-          <p>${ev.description || ''}</p>
+          ${!compact ? `<p>${ev.description || ''}</p>` : ''}
           ${ev.badge ? `<span class="event-tag" style="background:${ev.badge_color||'#E8500A'}">${ev.badge}</span>` : ''}
         </div>`;
       }
-      grid.innerHTML = visible.map(e => buildCard(e, false)).join('') + hidden.map(e => buildCard(e, true)).join('');
-      if (hidden.length > 0) {
-        toggle.style.display = '';
-        let expanded = false;
-        toggle.onclick = () => {
-          expanded = !expanded;
-          grid.querySelectorAll('.event-hidden').forEach(c => c.classList.toggle('event-hidden', !expanded));
-          toggle.textContent = expanded ? 'Show Less ▴' : 'Show More Events ▾';
-        };
+
+      if (isMobile) {
+        // Mobile: show first card full-size, rest hidden in a compact calendar panel
+        const first = data[0];
+        const rest  = data.slice(1);
+        grid.innerHTML = buildCard(first, false) +
+          (rest.length ? `<div class="events-calendar-panel" id="eventsPanel" style="display:none">${rest.map(e => buildCard(e, true)).join('')}</div>` : '');
+        if (rest.length) {
+          toggle.style.display = '';
+          toggle.textContent = 'See All Events ▾';
+          let open = false;
+          toggle.onclick = () => {
+            open = !open;
+            document.getElementById('eventsPanel').style.display = open ? '' : 'none';
+            toggle.textContent = open ? 'Show Less ▴' : 'See All Events ▾';
+          };
+        } else {
+          toggle.style.display = 'none';
+        }
       } else {
-        toggle.style.display = 'none';
+        // Desktop: show first 3, hide rest behind toggle
+        const visible = data.slice(0, 3);
+        const hidden  = data.slice(3);
+        grid.innerHTML = visible.map(e => buildCard(e, false)).join('') +
+          hidden.map(e => `<div class="event-hidden">${buildCard(e, false)}</div>`).join('');
+        if (hidden.length) {
+          toggle.style.display = '';
+          toggle.textContent = 'Show More Events ▾';
+          let expanded = false;
+          toggle.onclick = () => {
+            expanded = !expanded;
+            grid.querySelectorAll('.event-hidden').forEach(c => { c.style.display = expanded ? '' : 'none'; });
+            toggle.textContent = expanded ? 'Show Less ▴' : 'Show More Events ▾';
+          };
+          grid.querySelectorAll('.event-hidden').forEach(c => { c.style.display = 'none'; });
+        } else {
+          toggle.style.display = 'none';
+        }
       }
     }
 
