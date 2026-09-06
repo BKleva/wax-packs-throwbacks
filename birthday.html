@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Parties | Wax, Packs, & Throwbacks</title>
+  <meta name="description" content="Celebrate your birthday at Wax, Packs, & Throwbacks in Linwood, NJ. Three party packages featuring the Rip Lounge, store credit, pizza, and drinks." />
+  <link rel="icon" type="image/jpeg" href="wpt1.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0D1B2A;
+      --yellow: #F5C800;
+      --yellow-dark: #D4A900;
+      --teal: #00B8CC;
+      --teal-dark: #008FA3;
+      --white: #ffffff;
+      --off-white: #F7F7F5;
+      --red: #D93025;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      color: var(--navy);
+      background: var(--off-white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      border-bottom: 4px solid var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: clamp(60px, 6vw, 90px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: clamp(94px, 11vw, 162px);
+      width: auto;
+      transform: scaleX(1.33);
+      transform-origin: left center;
+      object-fit: contain;
+      position: relative;
+      z-index: 101;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--yellow); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    /* ── HERO BANNER ── */
+    .bday-hero {
+      background: var(--navy);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bday-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,184,204,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(245,200,0,0.1) 0%, transparent 60%);
+    }
+
+    .bday-hero-content { position: relative; z-index: 1; }
+
+    .bday-hero .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .bday-hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      line-height: 1;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .bday-hero h1 .accent { color: var(--yellow); }
+
+    .bday-hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      background: var(--yellow);
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      box-shadow: 4px 4px 0 rgba(255,255,255,0.2);
+      border-radius: 3px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .hero-cta:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 rgba(255,255,255,0.2);
+    }
+
+    /* ── PACKAGES ── */
+    .packages {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .packages-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .packages-header .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .packages-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .packages-header h2 .accent { color: var(--teal-dark); }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .pkg-card {
+      background: var(--white);
+      border-radius: 10px;
+      border: 2px solid rgba(13,27,42,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .pkg-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .pkg-header {
+      padding: 2rem 1.8rem 1.5rem;
+      text-align: center;
+    }
+
+    .pkg-card:nth-child(1) .pkg-header { background: var(--navy); }
+    .pkg-card:nth-child(2) .pkg-header { background: var(--teal-dark); }
+    .pkg-card:nth-child(3) .pkg-header { background: #1a2f4a; }
+
+    .pkg-balloons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .balloon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .balloon:nth-child(2) { animation-delay: 0.4s; animation-duration: 3.4s; }
+    .balloon:nth-child(3) { animation-delay: 0.8s; animation-duration: 2.8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-7px); }
+    }
+
+    .balloon-body {
+      width: 36px;
+      height: 44px;
+      border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+      position: relative;
+    }
+
+    .balloon-body::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid inherit;
+    }
+
+    .balloon-knot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 1px;
+    }
+
+    .balloon-string {
+      width: 1px;
+      height: 22px;
+      background: rgba(255,255,255,0.4);
+    }
+
+    /* Colors per card */
+    .pkg-card:nth-child(1) .balloon:nth-child(1) .balloon-body { background: var(--yellow); }
+    .pkg-card:nth-child(1) .balloon:nth-child(1) .balloon-knot { background: var(--yellow-dark); }
+    .pkg-card:nth-child(1) .balloon:nth-child(2) .balloon-body { background: #fff; }
+    .pkg-card:nth-child(1) .balloon:nth-child(2) .balloon-knot { background: #ccc; }
+    .pkg-card:nth-child(1) .balloon:nth-child(3) .balloon-body { background: var(--teal); }
+    .pkg-card:nth-child(1) .balloon:nth-child(3) .balloon-knot { background: var(--teal-dark); }
+
+    .pkg-card:nth-child(2) .balloon:nth-child(1) .balloon-body { background: var(--yellow); }
+    .pkg-card:nth-child(2) .balloon:nth-child(1) .balloon-knot { background: var(--yellow-dark); }
+    .pkg-card:nth-child(2) .balloon:nth-child(2) .balloon-body { background: #fff; }
+    .pkg-card:nth-child(2) .balloon:nth-child(2) .balloon-knot { background: #ccc; }
+    .pkg-card:nth-child(2) .balloon:nth-child(3) .balloon-body { background: var(--navy); }
+    .pkg-card:nth-child(2) .balloon:nth-child(3) .balloon-knot { background: #05080d; }
+
+    .pkg-card:nth-child(3) .balloon:nth-child(1) .balloon-body { background: var(--yellow); }
+    .pkg-card:nth-child(3) .balloon:nth-child(1) .balloon-knot { background: var(--yellow-dark); }
+    .pkg-card:nth-child(3) .balloon:nth-child(2) .balloon-body { background: var(--red); }
+    .pkg-card:nth-child(3) .balloon:nth-child(2) .balloon-knot { background: #a0221a; }
+    .pkg-card:nth-child(3) .balloon:nth-child(3) .balloon-body { background: #fff; }
+    .pkg-card:nth-child(3) .balloon:nth-child(3) .balloon-knot { background: #ccc; }
+
+    .pkg-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+
+    .pkg-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      margin-top: 0.25rem;
+    }
+
+    .pkg-body {
+      padding: 1.8rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .pkg-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #334;
+    }
+
+    .pkg-feature-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .pkg-credit {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .pkg-cta {
+      margin: 0 1.8rem 1.8rem;
+      display: block;
+      text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      background: var(--yellow);
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      box-shadow: 3px 3px 0 var(--navy);
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .pkg-cta:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--navy);
+    }
+
+    /* ── RIP LOUNGE CALLOUT ── */
+    .rip-lounge-bar {
+      background: var(--navy);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .rip-lounge-bar p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .rip-lounge-bar span {
+      color: var(--yellow);
+    }
+
+    /* ── INQUIRY FORM ── */
+    .inquiry {
+      padding: 5rem 2rem;
+      background: var(--white);
+    }
+
+    .inquiry-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .inquiry-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .inquiry-header .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .inquiry-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .inquiry-header p {
+      margin-top: 0.75rem;
+      font-size: 1rem;
+      color: #556;
+      line-height: 1.6;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-field.full { grid-column: 1 / -1; }
+
+    label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+
+    input, select, textarea {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.7rem 1rem;
+      border: 2px solid rgba(13,27,42,0.18);
+      border-radius: 4px;
+      background: var(--off-white);
+      color: var(--navy);
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+
+    textarea { resize: vertical; min-height: 110px; }
+
+    .submit-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      background: var(--yellow);
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      box-shadow: 4px 4px 0 var(--navy);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--navy);
+    }
+
+    .form-note {
+      font-size: 0.85rem;
+      color: #778;
+      margin-top: 1rem;
+    }
+
+    /* ── SUCCESS MESSAGE ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--off-white);
+      border-radius: 8px;
+      border: 2px solid var(--teal);
+    }
+
+    .form-success h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-success p { color: #556; font-size: 1rem; }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      background: var(--yellow);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .contact-strip h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-strip p {
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    .contact-strip a {
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .contact-strip a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      text-align: center;
+      padding: 1.5rem 2rem;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    footer a { color: var(--teal); text-decoration: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--navy);
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 0 1rem;
+        border-bottom: 3px solid var(--yellow);
+        z-index: 99;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li { text-align: center; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1rem;
+        font-size: 1.05rem;
+      }
+
+      .packages-grid { grid-template-columns: 1fr; }
+
+      .form-grid { grid-template-columns: 1fr; }
+
+      .form-field.full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo"><img src="headimage.png" alt="Wax, Packs, & Throwbacks" /></a>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#gallery-feed">Gallery</a></li>
+      <li><a href="/#events">Events</a></li>
+      <li><a href="/#shop">Shop</a></li>
+      <li><a href="/#staff">Staff</a></li>
+      <li><a href="/#visit">Visit Us</a></li>
+      <li><a href="/birthday.html" class="active">Birthday Parties</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="bday-hero">
+    <div class="bday-hero-content">
+      <span class="section-label">Celebrate With Us</span>
+      <h1>Birthday <span class="accent">Parties</span></h1>
+      <p>Make your birthday unforgettable — rip packs, earn store credit, and hang out in the Rip Lounge with your crew.</p>
+      <a href="#inquiry" class="hero-cta">Book Your Party</a>
+    </div>
+  </section>
+
+  <!-- RIP LOUNGE BAR -->
+  <div class="rip-lounge-bar">
+    <p>🎮 <span>Rip Lounge includes:</span> XBox · Skee Ball · Air Hockey</p>
+  </div>
+
+  <!-- PACKAGES -->
+  <section class="packages">
+    <div class="packages-header">
+      <span class="section-label">Choose Your Package</span>
+      <h2>Pick Your <span class="accent">Pack</span></h2>
+    </div>
+    <div class="packages-grid">
+
+      <!-- Fat Packs -->
+      <div class="pkg-card">
+        <div class="pkg-header">
+          <div class="pkg-balloons">
+            <div class="balloon"><div class="balloon-body"></div><div class="balloon-knot"></div><div class="balloon-string"></div></div>
+          </div>
+          <div class="pkg-name">Fat Packs</div>
+          <div class="pkg-price">$40 per person</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span>2 Hours in the Rip Lounge</span>
+          </div>
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span><span class="pkg-credit">$20 Store Credit</span> per guest</span>
+          </div>
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span>2 Slices of Pizza &amp; Free Drinks</span>
+          </div>
+        </div>
+        <a href="#inquiry" class="pkg-cta">Book This Package</a>
+      </div>
+
+      <!-- Blaster Box -->
+      <div class="pkg-card">
+        <div class="pkg-header">
+          <div class="pkg-balloons">
+            <div class="balloon"><div class="balloon-body"></div><div class="balloon-knot"></div><div class="balloon-string"></div></div>
+            <div class="balloon"><div class="balloon-body"></div><div class="balloon-knot"></div><div class="balloon-string"></div></div>
+          </div>
+          <div class="pkg-name">Blaster Box</div>
+          <div class="pkg-price">$50 per person</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span>2 Hours in the Rip Lounge</span>
+          </div>
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span><span class="pkg-credit">$30 Store Credit</span> per guest</span>
+          </div>
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span>2 Slices of Pizza &amp; Free Drinks</span>
+          </div>
+        </div>
+        <a href="#inquiry" class="pkg-cta">Book This Package</a>
+      </div>
+
+      <!-- Hobby Box -->
+      <div class="pkg-card">
+        <div class="pkg-header">
+          <div class="pkg-balloons">
+            <div class="balloon"><div class="balloon-body"></div><div class="balloon-knot"></div><div class="balloon-string"></div></div>
+            <div class="balloon"><div class="balloon-body"></div><div class="balloon-knot"></div><div class="balloon-string"></div></div>
+            <div class="balloon"><div class="balloon-body"></div><div class="balloon-knot"></div><div class="balloon-string"></div></div>
+          </div>
+          <div class="pkg-name">Hobby Box</div>
+          <div class="pkg-price">$60 per person</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span>2 Hours in the Rip Lounge</span>
+          </div>
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span><span class="pkg-credit">$40 Store Credit</span> per guest</span>
+          </div>
+          <div class="pkg-feature">
+            <div class="pkg-feature-icon">✓</div>
+            <span>2 Slices of Pizza &amp; Free Drinks</span>
+          </div>
+        </div>
+        <a href="#inquiry" class="pkg-cta">Book This Package</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INQUIRY FORM -->
+  <section class="inquiry" id="inquiry">
+    <div class="inquiry-inner">
+      <div class="inquiry-header">
+        <span class="section-label">Get In Touch</span>
+        <h2>Send an Inquiry</h2>
+        <p>Fill out the form below and Jon or Dan will get back to you to confirm your date and details.</p>
+      </div>
+
+      <form action="https://formsubmit.co/waxpacksandthrowbacks@gmail.com" method="POST" id="birthdayForm">
+        <input type="hidden" name="_subject" value="🎉 Birthday Party Inquiry – Wax, Packs &amp; Throwbacks" />
+        <input type="hidden" name="_cc" value="ben@shoreworksnj.com" />
+        <input type="hidden" name="_next" value="https://waxpacksandthrowbacks.com/birthday.html?success=1" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" style="display:none" />
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Full name" required />
+          </div>
+          <div class="form-field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" required />
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(609) 000-0000" />
+          </div>
+          <div class="form-field">
+            <label for="party-date">Preferred Date</label>
+            <input type="date" id="party-date" name="party-date" required />
+          </div>
+          <div class="form-field">
+            <label for="guests">Number of Guests</label>
+            <input type="number" id="guests" name="guests" min="1" placeholder="e.g. 10" required />
+          </div>
+          <div class="form-field">
+            <label for="package">Package</label>
+            <select id="package" name="package" required>
+              <option value="" disabled selected>Choose a package</option>
+              <option value="Fat Packs – $40/person">Fat Packs – $40/person</option>
+              <option value="Blaster Box – $50/person">Blaster Box – $50/person</option>
+              <option value="Hobby Box – $60/person">Hobby Box – $60/person</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label for="message">Anything Else We Should Know?</label>
+            <textarea id="message" name="message" placeholder="Special requests, age of birthday person, dietary needs, etc."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Inquiry</button>
+        <p class="form-note">Or call us directly — ask for Jon or Dan at <a href="tel:6092882927">(609) 288-2927</a></p>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <h3>🎉 We Got It!</h3>
+        <p>Thanks for reaching out. Jon or Dan will contact you shortly to lock in your party date.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <h3>Questions? Just Call.</h3>
+    <p>Ask for Jon or Dan &nbsp;·&nbsp; <a href="tel:6092882927">(609) 288-2927</a></p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Wax, Packs, &amp; Throwbacks &nbsp;·&nbsp; <a href="/">Back to Home</a></p>
+  </footer>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks  = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // Pre-select package from "Book This Package" buttons
+    document.querySelectorAll('.pkg-cta').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const pkgName = btn.closest('.pkg-card').querySelector('.pkg-name').textContent.trim();
+        const price   = btn.closest('.pkg-card').querySelector('.pkg-price').textContent.trim().replace('per person','').trim();
+        const select  = document.getElementById('package');
+        for (const opt of select.options) {
+          if (opt.text.startsWith(pkgName)) { select.value = opt.value; break; }
+        }
+        document.getElementById('inquiry').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Show success message if redirected back after submission
+    if (new URLSearchParams(window.location.search).get('success') === '1') {
+      document.getElementById('birthdayForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+      document.getElementById('inquiry').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>

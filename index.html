@@ -68,15 +68,23 @@
     ]
   }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Preconnect to speed up external origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://epurodwmtnwasgjwsdwy.supabase.co" crossorigin />
+  <!-- Preload hero background image so it's fetched before CSS applies it -->
+  <link rel="preload" href="wpt3.jpeg" as="image" />
+  <!-- Non-blocking font load -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" onload="this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" /></noscript>
   <script>
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    // Strip any hash from the URL and force scroll to top on every page load
     if (location.hash) history.replaceState(null, '', location.pathname);
     document.addEventListener('DOMContentLoaded', () => window.scrollTo(0, 0));
     window.addEventListener('load', () => window.scrollTo(0, 0));
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -998,164 +1006,179 @@
     /* ── STAFF ── */
     .staff { background: var(--white); }
 
-    /* ── STAFF GRID (desktop) ── */
-    .staff-carousel-wrap {
-      position: relative;
-    }
+    /* ── STAFF / MADDEN CARDS ── */
+    .staff-carousel-wrap { position: relative; }
+
+    /* Horizontal row — all cards in one line, scrollable if needed */
     .staff-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 1rem 0.5rem 1.5rem;
+      scrollbar-width: none;
     }
+    .staff-grid::-webkit-scrollbar { display: none; }
+
+    /* ── MADDEN CARD ── */
     .staff-card {
-      text-align: center;
-      border-radius: 8px;
+      flex: 0 0 200px;
+      width: 200px;
+      border-radius: 12px;
       overflow: hidden;
-      border: 2px solid rgba(13,27,42,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      background: linear-gradient(160deg, #1a2a3a 0%, #0a1520 60%, #0d1b2a 100%);
+      border: 2px solid rgba(245,200,0,0.35);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+      text-align: left;
     }
     .staff-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 20px 50px rgba(245,200,0,0.3), 0 8px 20px rgba(0,0,0,0.5);
+      border-color: var(--yellow);
+    }
+    /* Gold shimmer stripe across top */
+    .staff-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--yellow), #fff8aa, var(--yellow), transparent);
+    }
+    /* Card tier glow: owners = gold, associates = teal */
+    .staff-card.owner-card { border-color: var(--yellow); }
+    .staff-card.owner-card .madden-tier { color: var(--yellow); }
+    .staff-card.assoc-card { border-color: var(--teal); }
+    .staff-card.assoc-card .madden-tier { color: var(--teal); }
+
+    .madden-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 10px 10px 0;
+    }
+    .madden-rating {
+      line-height: 1;
+    }
+    .madden-ovr-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--yellow);
+      display: block;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(245,200,0,0.5);
+    }
+    .madden-ovr-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+    .madden-tier {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.07);
+      margin-top: 4px;
+      align-self: flex-start;
+    }
+    .madden-photo {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      margin: 6px 0 0;
+      filter: contrast(1.05) saturate(1.1);
+    }
+    .madden-photo-placeholder {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--navy) 100%);
+      margin: 6px 0 0;
+    }
+    .madden-info {
+      padding: 8px 10px 4px;
+    }
+    .madden-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 1px;
+    }
+    .madden-pos {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 8px;
+    }
+    .madden-divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--yellow), transparent);
+      margin: 6px 0;
+      opacity: 0.4;
+    }
+    .madden-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 6px;
+      padding: 0 0 10px;
+    }
+    .madden-stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .madden-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .madden-stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      color: var(--yellow);
     }
     .staff-carousel-controls { display: none; }
 
-    /* ── STAFF CAROUSEL (mobile only) ── */
     @media (max-width: 768px) {
       .hero { min-height: 65vh; }
       .hero-bg { background-position: 40% 35%; }
       .visit { background-position: 80px center; background-size: 160%; }
       .shop-fulfillment { justify-content: center; }
-      .staff-carousel-wrap { overflow: hidden; }
       .staff-grid {
-        display: flex;
-        grid-template-columns: unset;
-        gap: 0;
-        transition: transform 0.4s ease;
-        will-change: transform;
+        justify-content: flex-start;
+        padding: 1rem 1rem 1.5rem;
       }
       .staff-card {
-        flex: 0 0 100%;
-        min-width: 0;
-        border-radius: 8px;
+        flex: 0 0 170px;
+        width: 170px;
       }
       .staff-card:hover {
         transform: none;
-        box-shadow: none;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.45);
       }
-      .staff-carousel-controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.2rem;
-        margin-top: 1.5rem;
-      }
-    }
-    .staff-prev, .staff-next {
-      background: var(--navy);
-      color: var(--yellow);
-      border: 2px solid var(--yellow);
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, color 0.2s;
-      flex-shrink: 0;
-    }
-    .staff-prev:hover, .staff-next:hover {
-      background: var(--yellow);
-      color: var(--navy);
-    }
-    .staff-dots {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .staff-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(13,27,42,0.2);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      border: none;
-    }
-    .staff-dot.active {
-      background: var(--navy);
-      transform: scale(1.3);
-    }
-
-    .staff-photo {
-      aspect-ratio: 1;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--navy) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .staff-photo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--dot-pattern);
-      background-size: 16px 16px;
-    }
-
-    .staff-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      inset: 0;
-    }
-
-    .staff-info {
-      padding: 1.25rem 1rem;
-      background: var(--white);
-    }
-
-    .staff-info h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--navy);
-      margin-bottom: 0.2rem;
-    }
-
-    .staff-role {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--teal-dark);
-      margin-bottom: 0.6rem;
-    }
-
-    .staff-info p {
-      font-size: 0.88rem;
-      color: #556;
-      line-height: 1.6;
-    }
-
-    .staff-specialty {
-      display: inline-block;
-      margin-top: 0.8rem;
-      background: var(--off-white);
-      border: 2px solid var(--yellow);
-      color: var(--navy);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 0.2rem 0.7rem;
-      border-radius: 3px;
     }
 
     /* ── INSTAGRAM ── */
@@ -1598,6 +1621,13 @@
 
       .insta-card { width: 200px; }
 
+      .insta-scroll-wrap.carousel-active {
+        overflow-x: hidden;
+        cursor: default;
+        scrollbar-width: none;
+      }
+      .insta-scroll-wrap.carousel-active:active { cursor: default; }
+      .insta-scroll-wrap.carousel-active::-webkit-scrollbar { display: none; }
 
       .events-grid { grid-template-columns: 1fr; }
     }
@@ -1801,7 +1831,7 @@
 <body>
 
   <nav>
-    <a href="#" class="nav-logo"><img src="headimage.png" alt="Wax, Packs, & Throwbacks" /></a>
+    <a href="#" class="nav-logo"><img src="headimage.png" alt="Wax, Packs, & Throwbacks" fetchpriority="high" /></a>
     <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -1812,6 +1842,7 @@
       <li><a href="#shop">Shop</a></li>
       <li><a href="#staff">Staff</a></li>
       <li><a href="#visit">Visit Us</a></li>
+      <li><a href="/birthday.html">Birthday Parties</a></li>
     </ul>
   </nav>
 
@@ -1992,16 +2023,9 @@
       <div class="title-bar">
         <h2 class="section-title">Meet the <span class="accent">Team</span></h2>
       </div>
-      <div class="staff-carousel-wrap">
       <div class="staff-grid" id="staffCarousel">
         <!-- loaded from Supabase -->
-      </div><!-- /.staff-grid -->
-      <div class="staff-carousel-controls">
-        <button class="staff-prev" aria-label="Previous">&#8592;</button>
-        <div class="staff-dots" id="staffDots"></div>
-        <button class="staff-next" aria-label="Next">&#8594;</button>
       </div>
-      </div><!-- /.staff-carousel-wrap -->
     </div>
   </section>
 
@@ -2334,57 +2358,48 @@
       }
     }
 
-    /* ── LOAD STAFF ── */
+    /* ── LOAD STAFF (Madden cards) ── */
+    const MADDEN_ACCOLADES = {
+      'Jon':    { tier: 'OWNER', stats: [['HYPE','99'],['DEAL','99'],['KNOW','99'],['GRIND','99']] },
+      'Dan':    { tier: 'OWNER', stats: [['VIBE','99'],['PULL','99'],['RARE','99'],['HUSTLE','99']] },
+      'Carlos': { tier: 'ASSOCIATE', stats: [['SPD','99'],['HYPE','99'],['HEAT','99'],['VIBE','99']] },
+      'Matt':   { tier: 'ASSOCIATE', stats: [['KNOW','99'],['PACK','99'],['COOL','99'],['LOCK','99']] },
+      'Aiden':  { tier: 'ASSOCIATE', stats: [['DRIP','99'],['FLEX','99'],['FIRE','99'],['SWAG','99']] },
+    };
+
     async function loadStaff() {
-      const carousel = document.getElementById('staffCarousel');
+      const grid = document.getElementById('staffCarousel');
       const { data, error } = await sb.from('wpt_staff').select('*').order('sort_order').order('id');
       if (error || !data || !data.length) {
-        carousel.innerHTML = '<div class="staff-card"><div class="staff-info"><h3>Coming Soon</h3></div></div>';
-        reinitCarousel();
+        grid.innerHTML = '<div style="color:#aaa;padding:2rem;">Coming Soon</div>';
         return;
       }
-      carousel.innerHTML = data.map(s => `
-        <div class="staff-card">
-          <div class="staff-photo" style="${s.bg_color ? 'background:' + s.bg_color : ''}">
-            ${s.photo_url ? `<img src="${s.photo_url}" alt="${s.name}" style="width:100%;height:100%;object-fit:cover;" />` : (s.photo_emoji || '🧢')}
+      grid.innerHTML = data.map(s => {
+        const isOwner = (s.role || '').toLowerCase().includes('owner');
+        const accs = MADDEN_ACCOLADES[s.name] || { tier: isOwner ? 'OWNER' : 'ASSOCIATE', stats: [['HYPE','99'],['KNOW','99'],['DEAL','99'],['VIBE','99']] };
+        const statsHtml = accs.stats.map(([k,v]) =>
+          `<div class="madden-stat"><span class="madden-stat-label">${k}</span><span class="madden-stat-val">${v}</span></div>`
+        ).join('');
+        const photo = s.photo_url
+          ? `<img class="madden-photo" src="${s.photo_url}" alt="${s.name}" loading="lazy" />`
+          : `<div class="madden-photo-placeholder">${s.photo_emoji || '🧢'}</div>`;
+        return `<div class="staff-card ${isOwner ? 'owner-card' : 'assoc-card'}">
+          <div class="madden-top">
+            <div class="madden-rating">
+              <span class="madden-ovr-num">99</span>
+              <span class="madden-ovr-label">OVR</span>
+            </div>
+            <span class="madden-tier">${accs.tier}</span>
           </div>
-          <div class="staff-info">
-            <h3>${s.name}</h3>
-            ${s.role ? `<div class="staff-role">${s.role}</div>` : ''}
-            ${s.bio  ? `<p>${s.bio}</p>` : ''}
-            ${s.specialty ? `<span class="staff-specialty">${s.specialty_icon || '⭐'} ${s.specialty}</span>` : ''}
+          ${photo}
+          <div class="madden-info">
+            <div class="madden-name">${s.name}</div>
+            <div class="madden-pos">${s.role || 'Card Expert'}</div>
+            <div class="madden-divider"></div>
+            <div class="madden-stats">${statsHtml}</div>
           </div>
-        </div>`).join('');
-      reinitCarousel();
-    }
-
-    function reinitCarousel() {
-      const carousel = document.getElementById('staffCarousel');
-      const dotsWrap = document.getElementById('staffDots');
-      const cards    = carousel.querySelectorAll('.staff-card');
-      if (!cards.length) return;
-      let current = 0;
-      dotsWrap.innerHTML = '';
-      cards.forEach((_, i) => {
-        const d = document.createElement('button');
-        d.className = 'staff-dot' + (i === 0 ? ' active' : '');
-        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-        d.addEventListener('click', () => goTo(i));
-        dotsWrap.appendChild(d);
-      });
-      function goTo(n) {
-        current = Math.max(0, Math.min(n, cards.length - 1));
-        carousel.style.transform = `translateX(-${current * 100}%)`;
-        dotsWrap.querySelectorAll('.staff-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      }
-      document.querySelector('.staff-prev').onclick = () => goTo(current - 1);
-      document.querySelector('.staff-next').onclick = () => goTo(current + 1);
-      let swipeStartX = 0;
-      carousel.addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, { passive: true });
-      carousel.addEventListener('touchend', e => {
-        const diff = swipeStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
-      });
+        </div>`;
+      }).join('');
     }
 
     /* ── LIGHTBOX ── */
@@ -2403,12 +2418,12 @@
     /* ── LOAD GALLERY ── */
     async function loadGallery() {
       const track = document.getElementById('galleryTrack');
-      const { data, error } = await sb.from('wpt_gallery').select('*').order('sort_order').order('created_at', { ascending: false }).limit(16);
+      const { data, error } = await sb.from('wpt_gallery').select('*').order('sort_order').order('created_at', { ascending: false }).limit(12);
       if (error || !data || !data.length) return;
       track.innerHTML = data.map(g => `
         <div class="insta-card" data-url="${g.url}" data-caption="${(g.caption||'').replace(/"/g,'&quot;')}" style="cursor:pointer;">
           <div class="insta-img" style="background:#111;">
-            <img src="${g.url}" alt="${g.caption||''}" style="width:100%;height:100%;object-fit:cover;" />
+            <img src="${g.url}" alt="${g.caption||''}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
             <div class="insta-overlay"><span>View Photo</span></div>
           </div>
           ${g.caption ? `<div class="insta-caption"><p>${g.caption}</p></div>` : ''}
@@ -2416,6 +2431,41 @@
       track.querySelectorAll('.insta-card[data-url]').forEach(card => {
         card.addEventListener('click', () => openLightbox(card.dataset.url, card.dataset.caption));
       });
+      startMobileCarousel();
+    }
+
+    function startMobileCarousel() {
+      if (window.innerWidth > 768) return;
+      const wrap = document.getElementById('instaScroll');
+      const track = document.getElementById('galleryTrack');
+      const origCards = Array.from(track.querySelectorAll('.insta-card'));
+      if (origCards.length < 2) return;
+      wrap.classList.add('carousel-active');
+
+      // Clone all cards and append — creates seamless loop
+      origCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.addEventListener('click', () => openLightbox(clone.dataset.url, clone.dataset.caption));
+        track.appendChild(clone);
+      });
+
+      const gap = 16;
+      const cardW = () => origCards[0].offsetWidth + gap;
+      let index = 0;
+
+      setInterval(() => {
+        index++;
+        wrap.scrollTo({ left: index * cardW(), behavior: 'smooth' });
+
+        // When we've shown the first clone (index === origCards.length),
+        // silently jump back to the real card at index 0 after the slide finishes
+        if (index >= origCards.length) {
+          setTimeout(() => {
+            wrap.scrollTo({ left: 0, behavior: 'instant' });
+            index = 0;
+          }, 550);
+        }
+      }, 3200);
     }
 
     /* ── INITIAL LOAD ── */
